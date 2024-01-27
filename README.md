@@ -1,3 +1,10 @@
-# Rockbuster
+### The Rockbuster project, designed by CareerFoundry, investigated the market viability of shifting the movie rental business into a streaming service.  
 
-![postgresql50](https://github.com/jinu5452/Rockbuster/assets/157840439/3f0f9397-4164-4ffd-a2ef-0b2de863e284)
+#### PostgreSQL Tableau  Excel
+
+#### Key Questions:  
+- Which movies contributed the most/least to revenue gain?
+- What was the average rental duration for all videos?
+-  Which countries are Rockbuster customers based i n?
+-  Where are customers with a high l ifetime value based?
+-  Do sales figures vary between geographic regions?
