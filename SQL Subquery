@@ -1,0 +1,23 @@
+# This SQL query containing a subquery to calculate the average total payment of 'top5 customer'.
+
+with top5 (customer_id, country, city, total_amount_paid) as
+(
+    SELECT
+        cu.customer_id,
+        ci.city,
+        co.country,
+        sum(pay.amount) as total_amount_paid
+    FROM customer cu
+    INNER JOIN address ad ON cu.address_id = ad.address_id
+    INNER JOIN city ci ON ad.city_id = ci.city_id
+    INNER JOIN country co ON ci.country_id = co.country_id
+    INNER JOIN payment pay ON cu.customer_id = pay.customer_id
+    WHERE ci.city IN ('Aurora', 'Tokat', 'Tarsus', 'Atlixco', 'Emeishan', 'Pontianak', 'Shimoga', 'Aparecida de Goinia', 'Zalantun', 'Taguig')
+    GROUP BY cu.customer_id, ci.city, co.country
+    ORDER BY total_amount_paid DESC
+    LIMIT 5
+)
+
+SELECT
+    avg(total_amount_paid)
+FROM top5
