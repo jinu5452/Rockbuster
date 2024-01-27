@@ -1,6 +1,6 @@
 ### The Rockbuster project, designed by CareerFoundry, investigated the market viability of shifting the movie rental business into a streaming service.  
 
-##### **PostgreSQL Tableau  Excel**
+##### **Analyzed by PostgreSQL Tableau  Excel**
 
 ##### **Key Questions:**  
 - Which movies contributed the most/least to revenue gain?
