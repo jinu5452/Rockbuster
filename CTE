@@ -1,0 +1,31 @@
+# This SQL query containing a CTE to indentify how many 'the top 5 customers' are in each country.
+with top5 (customer_id, city, country, total_amount_paid) as
+(
+    SELECT
+        cu.customer_id,
+        ci.city,
+        co.country,
+        sum(pay.amount) as total_amount_paid
+    FROM customer cu
+    INNER JOIN address ad ON cu.address_id = ad.address_id
+    INNER JOIN city ci ON ad.city_id = ci.city_id
+    INNER JOIN country co ON ci.country_id = co.country_id
+    INNER JOIN payment pay ON cu.customer_id = pay.customer_id
+    WHERE ci.city IN ('Aurora', 'Tokat', 'Tarsus', 'Atlixco', 'Emeishan', 'Pontianak', 'Shimoga', 'Aparecida de Goinia', 'Zalantun', 'Taguig')
+    GROUP BY cu.customer_id, ci.city, co.country
+    ORDER BY total_amount_paid DESC
+    LIMIT 5
+)
+
+SELECT
+    co.country,
+    count(distinct cu.customer_id) as all_customer_count,
+    count(distinct top5.customer_id) as top_customer_count
+FROM customer cu
+INNER JOIN address ad ON cu.address_id = ad.address_id
+INNER JOIN city ci ON ad.city_id = ci.city_id
+INNER JOIN country co ON ci.country_id = co.country_id
+LEFT JOIN top5 ON co.country = top5.country
+GROUP BY co.country
+ORDER BY all_customer_count DESC
+LIMIT 5
