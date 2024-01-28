@@ -1,0 +1,32 @@
+#Query for checking duplicated values
+
+SELECT
+title,
+description,
+release_year,
+language_id,
+rental_duration,
+rental_rate,
+length,
+replacement_cost,
+rating,
+last_update,
+special_features,
+fulltext,
+COUNT(*) 
+FROM film
+
+GROUP BY title,
+description,
+release_year,
+language_id,
+rental_duration,
+rental_rate,
+length,
+replacement_cost,
+rating,
+last_update,
+special_features,
+fulltext
+
+HAVING COUNT(*) > 1;
