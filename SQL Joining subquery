@@ -1,0 +1,26 @@
+# This query is to Find out how many of the top 5 customers based within each country by joining sbuquery to outer qurey. 
+
+select co.country, count(select co.country, customer_id) as top_customer_count
+from customer cu
+inner join address ad on cu.address_id = ad.address_id
+inner join city ci on ad.city_id = ci.city_id
+inner join country co on ci.country_id = co.country_id
+left join
+(
+select
+cu.customer_id, cu.first_name, cu.last_name, ci.city, co.country,
+sum(pay.amount) as total_paid
+from customer cu
+inner join address ad on cu.address_id = ad.address_id
+inner join city ci on ad.city_id = ci.city_id
+inner join country co on ci.country_id = co.country_id
+inner join payment pay on cu.customer_id = pay.customer_id
+where ci.city in ('Aurora', 'Tokat', 'Tarsus', 'Atlixco', 'Emeishan', 'Pontianak', 'Shimoga', 'Aparecida de Goinia', 'Zalantun', 'Taguig')
+group by cu.customer_id, ci.city, co.country
+order by total_paid desc
+limit 5
+) as top_5_customers
+on co.country = top_5_customers.country
+group by co.country
+order by all_customer_count desc
+limit 5
